@@ -1,4 +1,4 @@
-package practice.zcl.com.practice;
+package com.zcl.practice;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

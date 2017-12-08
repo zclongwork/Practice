@@ -1,4 +1,4 @@
-package practice.zcl.com.practice;
+package com.zcl.practice;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
