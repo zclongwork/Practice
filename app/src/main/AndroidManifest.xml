@@ -3,12 +3,14 @@
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:name=".App"
         android:theme="@style/AppTheme">
         <activity
             android:name="com.zcl.practice.MainActivity"
@@ -23,6 +25,8 @@
 
         <activity android:name=".animation.AnimationActivity"/>
         <activity android:name=".danmakuflame.DemoActivity"/>
+        <activity android:name=".rx.RxJavaDemoActivity"
+                  android:label="RxJava"/>
 
     </application>
 
