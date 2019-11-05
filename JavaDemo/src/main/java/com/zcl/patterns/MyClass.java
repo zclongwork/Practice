@@ -1,4 +1,4 @@
-package com.zcl.javademo;
+package com.zcl.patterns;
 
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;

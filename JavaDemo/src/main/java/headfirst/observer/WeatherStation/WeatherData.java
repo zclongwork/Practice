@@ -1,7 +1,6 @@
 package headfirst.observer.WeatherStation;
 
-import java.util.*;
-import java.util.Observer;
+import java.util.ArrayList;
 
 public class WeatherData implements Subject {
 	private ArrayList observers;
@@ -24,9 +23,19 @@ public class WeatherData implements Subject {
 		}
 	}
 	
+	@Override
+	public void registerObserver(Observer o) {
+	
+	}
+	
+	@Override
+	public void removeObserver(Observer o) {
+	
+	}
+	
 	public void notifyObservers() {
 		for (int i = 0; i < observers.size(); i++) {
-			java.util.Observer observer = (Observer)observers.get(i);
+			Observer observer = (Observer)observers.get(i);
 			observer.update(temperature, humidity, pressure);
 		}
 	}
