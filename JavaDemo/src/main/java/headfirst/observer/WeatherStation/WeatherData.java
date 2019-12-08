@@ -12,25 +12,17 @@ public class WeatherData implements Subject {
 		observers = new ArrayList();
 	}
 	
-	public void registerObserver(java.util.Observer o) {
-		observers.add(o);
-	}
-	
-	public void removeObserver(java.util.Observer o) {
-		int i = observers.indexOf(o);
-		if (i >= 0) {
-			observers.remove(i);
-		}
-	}
-	
 	@Override
 	public void registerObserver(Observer o) {
-	
+		observers.add(o);
 	}
 	
 	@Override
 	public void removeObserver(Observer o) {
-	
+		int i = observers.indexOf(o);
+		if (i >= 0) {
+			observers.remove(i);
+		}
 	}
 	
 	public void notifyObservers() {
