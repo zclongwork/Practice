@@ -19,7 +19,7 @@ public class Utility {
      * 安全关闭
      * @param closeable
      */
-    public static void close(Closeable closeable) {
+    public static void closeSafely(Closeable closeable) {
         if (closeable == null) {
             return;
         }

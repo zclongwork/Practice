@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * 请不要在新代码中使用原生态类型
+ *
+ * 出错后应该尽快发现，最好是编译时就发现，本例中直到运行时才发现错误，已经出错很久了
+ *
+ */
 public class Raw {
 	// Uses raw type (List) - fails at runtime! - Page 112
 	public static void main(String[] args) {
@@ -33,4 +39,5 @@ public class Raw {
 				result++;
 		return result;
 	}
+
 }

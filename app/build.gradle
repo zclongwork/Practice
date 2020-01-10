@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '26.0.2'
+    compileSdkVersion COMPILE_SDK_VERSION
+    buildToolsVersion ANDROID_BUILD_TOOLS_VERSION
     defaultConfig {
         applicationId "com.zcl.practice"
-        minSdkVersion 15
-        targetSdkVersion 21
+        minSdkVersion ANDROID_BUILD_MIN_SDK_VERSION
+        targetSdkVersion ANDROID_BUILD_TARGET_SDK_VERSION
         versionCode 1
         versionName "1.0"
     }
@@ -21,20 +21,22 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:support-v4:23.1.1'
-    compile 'com.android.support:design:23.1.1'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+//    testImplementation 'junit:junit:4.12'
+    implementation "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
+    implementation "com.android.support:support-v4:$SUPPORT_LIBRARY_VERSION"
+    implementation "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
 
-    compile 'com.github.ctiao:DanmakuFlameMaster:0.9.16'
-    compile 'com.github.ctiao:ndkbitmap-armv7a:0.9.16'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    implementation 'com.github.ctiao:DanmakuFlameMaster:0.9.16'
+    implementation 'com.github.ctiao:ndkbitmap-armv7a:0.9.16'
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 
     // Rx
-    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
-    compile 'com.facebook.fresco:fresco:1.7.1'
-    compile project(':library')
+    implementation 'com.facebook.fresco:fresco:1.7.1'
+    implementation project(':library')
+
+    implementation project(':fileloader')
 }

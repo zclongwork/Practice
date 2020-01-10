@@ -2,6 +2,8 @@ package com.zcl.practice.util;
 
 import android.util.Log;
 
+import com.zcl.practice.App;
+
 import java.io.File;
 import java.util.List;
 
@@ -12,6 +14,9 @@ import java.util.List;
  */
 
 public class FileUtils {
+    
+    private static final String TAG = "FileUtils";
+    private static final boolean DEBUG = App.GLOBAL_DEBUG;
     
     /**
      * 递归查找文件
@@ -40,6 +45,40 @@ public class FileUtils {
                     fileList.add(tempFile.getAbsolutePath());
                 }
             }
+        }
+    }
+    
+    /**
+     * 确定SD卡缓存路径在使用前已经存在.
+     *
+     * @param dir
+     *            目录
+     * @return 是否建立成功
+     */
+    public static boolean ensureDirExists(final File dir) {
+        if (dir == null) {
+            if (DEBUG) {
+                Log.w(TAG, "ensureDirExists: param is null!");
+            }
+            return false;
+        }
+        if (dir.exists()) {
+            if (dir.isDirectory()) {
+                return true;
+            } else {
+                if (DEBUG) {
+                    Log.w(TAG, "ensureDirExists: param is not a directory!");
+                }
+                return false;
+            }
+        }
+        try {
+            return dir.mkdirs();
+        } catch (SecurityException e) {
+            if (DEBUG) {
+                e.printStackTrace();
+            }
+            return false;
         }
     }
     
