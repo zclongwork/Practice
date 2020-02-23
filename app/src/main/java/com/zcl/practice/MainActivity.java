@@ -33,6 +33,7 @@ import com.zcl.library.util.adapter.SimpleBaseAdapter;
 import com.zcl.library.util.adapter.ViewHolder;
 import com.zcl.practice.animation.AnimationActivity;
 import com.zcl.practice.danmakuflame.DemoActivity;
+import com.zcl.practice.ioc.IocActivity;
 import com.zcl.practice.rx.RxJavaDemoActivity;
 
 import java.util.ArrayList;
@@ -307,6 +308,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
+            Intent i = new Intent(this, IocActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_send) {
 
         }

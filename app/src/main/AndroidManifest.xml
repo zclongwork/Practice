@@ -31,6 +31,8 @@
         <activity android:name=".rx.RxJavaDemoActivity"
                   android:label="RxJava"/>
 
+        <activity android:name=".ioc.IocActivity"/>
+
     </application>
 
 </manifest>
