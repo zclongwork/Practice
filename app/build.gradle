@@ -39,4 +39,6 @@ dependencies {
     implementation project(':library')
 
     implementation project(':fileloader')
+
+    implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
 }

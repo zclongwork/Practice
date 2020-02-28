@@ -32,6 +32,7 @@
                   android:label="RxJava"/>
 
         <activity android:name=".ioc.IocActivity"/>
+        <activity android:name=".fragment.FragmentDemoActivity"/>
 
     </application>
 

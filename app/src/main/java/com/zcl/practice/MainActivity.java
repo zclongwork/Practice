@@ -32,7 +32,9 @@ import android.widget.Toast;
 import com.zcl.library.util.adapter.SimpleBaseAdapter;
 import com.zcl.library.util.adapter.ViewHolder;
 import com.zcl.practice.animation.AnimationActivity;
+import com.zcl.practice.constant.ItemId;
 import com.zcl.practice.danmakuflame.DemoActivity;
+import com.zcl.practice.fragment.FragmentDemoActivity;
 import com.zcl.practice.ioc.IocActivity;
 import com.zcl.practice.rx.RxJavaDemoActivity;
 
@@ -199,7 +201,7 @@ public class MainActivity extends AppCompatActivity
     
         ListView listView = (ListView) findViewById(R.id.list);
         
-        List<ListItem> data = getData();
+        final List<ListItem> data = getData();
         
         ListAdapter adapter = new ListAdapter(this, data);
         
@@ -208,14 +210,25 @@ public class MainActivity extends AppCompatActivity
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            
+
+                ListItem item = data.get(position);
+                int itemId = item.id;
+                switch (itemId) {
+                    case ItemId.FRAGMENT:
+                        startActivity(new Intent(MainActivity.this, FragmentDemoActivity.class));
+                        break;
+                    default:
+                        break;
+                }
+
+
             }
         });
     }
     
     private List<ListItem> getData() {
         List<ListItem> data = new ArrayList<>();
-        data.add(new ListItem(0,"View相关"));
+        data.add(new ListItem(ItemId.FRAGMENT,"Fragment"));
         data.add(new ListItem(1,"设计"));
         return data;
     }
