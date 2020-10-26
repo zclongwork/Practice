@@ -1,14 +1,11 @@
 package com.zcl.algorithm;
 
 /**
- * 选择排序 O(n2) n的平方
- * 基本思路每次找出未排序最小(大)的数，把该数放在它应在的位置。
- *
- * 可以看出起泡法和选择排序法需要的趟数都是一样的，不同的是交换的次数。起泡法每次比较就要立刻交换，
- * 而选择排序是把未排序最小的数找出来与它应在的位置上的元素交换。
- * 相对来说，选择排序交换次数较少，一定程度上提高了运算效率
+ * 1.冒泡排序
+ * 2.快速排序
+ * 3.选择排序
  */
-public class SortSelect {
+public class Sort {
 
     public static void main(String[] args) {
         int[] arr = {52,63,14,59,68,35,8,67,45,99};
@@ -23,6 +20,35 @@ public class SortSelect {
 
     }
 
+
+    /**
+     * 1.冒泡排序：
+     *
+     * 比较相邻的元素。如果第一个比第二个大，就交换他们两个。
+     * 对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。
+     * 针对所有的元素重复以上的步骤，直到没有任何一对数字需要比较。
+     * @param arr
+     * @return
+     */
+    public static int[] bubble(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr.length - 1 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+        return arr;
+    }
+
+    /**
+     * 2.快速排序
+     * @param arr
+     * @param left
+     * @param right
+     */
     public static void quickSort(int[] arr, int left, int right) {
         if (left >= right) {
             return;
@@ -62,7 +88,7 @@ public class SortSelect {
 
 
     /**
-     * 选择排序 O(n2) n的平方
+     * 3.选择排序 O(n2) n的平方
      * 基本思路每次找出未排序最小(大)的数，把该数放在它应在的位置。
      * <p>
      * 可以看出起泡法和选择排序法需要的趟数都是一样的，不同的是交换的次数。起泡法每次比较就要立刻交换，
