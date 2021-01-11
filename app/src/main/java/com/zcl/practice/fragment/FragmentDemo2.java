@@ -1,6 +1,9 @@
 package com.zcl.practice.fragment;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.zcl.practice.R;
 
@@ -44,6 +48,13 @@ public class FragmentDemo2 extends Fragment {
         } else {
             mRootView = inflater
                     .inflate(R.layout.fragment_demo1, null);
+            TextView tv = mRootView.findViewById(R.id.tv_1);
+
+            LinearGradient mShader = new LinearGradient(0, 0,
+                    tv.getPaint().getTextSize()* tv.getText().length(), 0,
+                    Color.RED, Color.BLUE, Shader.TileMode.CLAMP);
+            tv.getPaint().setShader(mShader);
+            tv.invalidate();
         }
         return mRootView;
     }

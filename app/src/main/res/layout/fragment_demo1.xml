@@ -9,9 +9,12 @@
 
 
     <TextView
+        android:id="@+id/tv_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:text="fragment demo1"
+        android:layout_marginTop="50dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="热门"
          />
 </LinearLayout>
