@@ -1,19 +1,17 @@
 package com.zcl.practice.fragment;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.LinearGradient;
-import android.graphics.Shader;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieListener;
 import com.zcl.practice.R;
 
 public class FragmentDemo2 extends Fragment {
@@ -47,16 +45,36 @@ public class FragmentDemo2 extends Fragment {
             }
         } else {
             mRootView = inflater
-                    .inflate(R.layout.fragment_demo1, null);
-            TextView tv = mRootView.findViewById(R.id.tv_1);
+                    .inflate(R.layout.fragment_demo2, null);
 
-            LinearGradient mShader = new LinearGradient(0, 0,
-                    tv.getPaint().getTextSize()* tv.getText().length(), 0,
-                    Color.RED, Color.BLUE, Shader.TileMode.CLAMP);
-            tv.getPaint().setShader(mShader);
-            tv.invalidate();
+
+            mRootView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    test();
+                }
+            }, 500);
         }
         return mRootView;
+    }
+    LottieAnimationView lottieAnimationView;
+    private void test() {
+        lottieAnimationView = mRootView.findViewById(R.id.lottie_gift_view);
+        lottieAnimationView.useHardwareAcceleration(true);
+
+        lottieAnimationView.setRepeatCount(1);
+//        lottieAnimationView.setAnimation(tempLottie.getLottieJson());//在assets目录下的动画json文件名。 //"lottie/giftLove.json"
+//        lottieAnimationView.setImageAssetsFolder(tempLottie.getLottieImages());//assets目录下的子目录，存放动画所需的图片 //"lottie/giftLove"
+
+//        lottieAnimationView.setAnimation("lottie/love77/images");
+//        lottieAnimationView.setImageAssetsFolder("lottie/love77/data.json");
+
+
+        // 如果url不存在，app会直接崩溃，里面是异步的，可以通过LottieAnimationView.setFailureListener监听失败
+        lottieAnimationView.setAnimationFromUrl("http://devpic.xiu123.cn/live/anigift/12862c7b9bcd3d.zip");
+
+        lottieAnimationView.playAnimation();
+
     }
 
     @Override

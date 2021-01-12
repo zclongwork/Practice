@@ -11,8 +11,21 @@ public class Hanota {
     Stack<Integer> C;
 
     public static void main(String[] args) {
-        Hanota hanota = new Hanota();
-        hanota.test();
+//        Hanota hanota = new Hanota();
+//        hanota.test();
+
+
+
+
+    }
+
+    public static int testF(int n) {
+        if (n<=0) {
+            return 0;
+        }
+        int result = testF(n-1);
+        int result2 = testF(n-2);
+        return result + result2;
     }
 
 

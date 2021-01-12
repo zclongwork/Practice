@@ -1,5 +1,8 @@
 package com.zcl.algorithm;
 
+import java.util.Arrays;
+import java.util.Random;
+
 /**
  * 1.冒泡排序
  * 2.快速排序
@@ -8,14 +11,30 @@ package com.zcl.algorithm;
 public class Sort {
 
     public static void main(String[] args) {
-        int[] arr = {52,63,14,59,68,35,8,67,45,99};
+//        int[] arr = {52,63,14,59,68,35,8,67,45,99};
+//
+////        selectSort(arr);
+//
+//
+//
+//        for (int i=0; i< arr.length-1;i++) {
+//            System.out.println(arr[i]);
+//        }
 
-//        selectSort(arr);
 
-        quickSort(arr, 0 , arr.length-1);
+//        int[] arr = {2,3,7,1,5};
+//        // 冒泡排序
+////        bubble(arr);
+//
+//        quickSort(arr, 0 , arr.length-1);
+//
+//        for (int i=0; i< arr.length;i++) {
+//            System.out.println(arr[i]);
+//        }
 
-        for (int i=0; i< arr.length-1;i++) {
-            System.out.println(arr[i]);
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            System.out.println(i + "=" + random.nextBoolean());
         }
 
     }
@@ -31,7 +50,9 @@ public class Sort {
      * @return
      */
     public static int[] bubble(int[] arr) {
-        for (int i = 0; i < arr.length; i++) {
+        //控制循排序轮数  这里-1 是因为每一轮都将最大的数排最后，最后一个不需再进行比较了
+        for (int i = 0; i < arr.length - 1; i++) {
+            //每轮排序 需要比较的元素比上一轮少一个（-i的原因）
             for (int j = 0; j < arr.length - 1 - i; j++) {
                 if (arr[j] > arr[j + 1]) {
                     int temp = arr[j];
@@ -42,6 +63,7 @@ public class Sort {
         }
         return arr;
     }
+
 
     /**
      * 2.快速排序
@@ -62,7 +84,7 @@ public class Sort {
     }
 
     private static int partition(int[] arr, int left, int right) {
-        // 以最左边的数(left)为基准 这中情况是最糟的情况 调用栈很深  随机选择会是平均速度会快很多
+        // 以最左边的数(left)为基准 这中情况是最糟的情况 调用栈很深  随机选择会使平均速度会快很多
         int base = arr[left];
         while (left < right) {
             // 从序列右端开始，向左遍历，直到找到小于base的数
@@ -84,7 +106,43 @@ public class Sort {
         return left;
     }
 
+    public class QuickSort {
 
+        public int[] sort(int[] sourceArray) throws Exception {
+            // 对 arr 进行拷贝，不改变参数内容
+            int[] arr = Arrays.copyOf(sourceArray, sourceArray.length);
+            return quickSort(arr, 0, arr.length - 1);
+        }
+
+        private int[] quickSort(int[] arr, int left, int right) {
+            if (left < right) {
+                int partitionIndex = partition(arr, left, right);
+                quickSort(arr, left, partitionIndex - 1);
+                quickSort(arr, partitionIndex + 1, right);
+            }
+            return arr;
+        }
+
+        private int partition(int[] arr, int left, int right) {
+            // 设定基准值（pivot）
+            int pivot = left;
+            int index = pivot + 1;
+            for (int i = index; i <= right; i++) {
+                if (arr[i] < arr[pivot]) {
+                    swap(arr, i, index);
+                    index++;
+                }
+            }
+            swap(arr, pivot, index - 1);
+            return index - 1;
+        }
+
+        private void swap(int[] arr, int i, int j) {
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+    }
 
 
     /**

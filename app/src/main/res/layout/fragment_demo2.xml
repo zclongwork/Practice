@@ -6,15 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <net.lucode.hackware.magicindicator.MagicIndicator
-        android:id="@+id/indicator"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@android:color/white" />
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_gift_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#f0f0f0" />
+        android:scaleType="centerCrop" />
 </LinearLayout>

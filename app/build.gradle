@@ -23,9 +23,9 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 //    testImplementation 'junit:junit:4.12'
-    implementation "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
-    implementation "com.android.support:support-v4:$SUPPORT_LIBRARY_VERSION"
-    implementation "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
 
     implementation 'com.github.ctiao:DanmakuFlameMaster:0.9.16'
     implementation 'com.github.ctiao:ndkbitmap-armv7a:0.9.16'
@@ -41,4 +41,5 @@ dependencies {
     implementation project(':fileloader')
 
     implementation 'com.github.hackware1993:MagicIndicator:1.5.0'
+    implementation 'com.airbnb.android:lottie:2.8.0'
 }

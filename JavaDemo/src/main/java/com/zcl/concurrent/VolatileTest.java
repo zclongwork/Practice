@@ -1,5 +1,14 @@
 package com.zcl.concurrent;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * volatile保证可见性，但java运算并不是原子操作
  * 因此以下程序的运行结果不是20000，
@@ -17,7 +26,7 @@ public class VolatileTest {
         count++;
     }
 
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
         Thread[] threads = new Thread[THREAD_COUNT];
         for (int i = 0; i < THREAD_COUNT; i++) {
             threads[i] = new Thread(new Runnable() {
@@ -48,4 +57,52 @@ public class VolatileTest {
 
         System.out.println("count:" + count);
     }
+
+    public static void main(String[] args) {
+        int[] arr ={1,2,2,1,1,3};
+        boolean result = uniqueOccurrences(arr);
+        System.out.println(result);
+    }
+
+    public static boolean uniqueOccurrences(int[] arr) {
+        //1.hashmap key=数字 value=数字个数
+        Map<Integer, Integer> map = new HashMap<>();
+        for(Integer i :arr) {
+            map.put(i, map.getOrDefault(i, 0)+1);
+        }
+
+
+        HashSet<Integer> set = new HashSet();
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            int value = entry.getValue();
+            if (set.contains(value)) {
+                return false;
+            }
+            set.add(value);
+        }
+        return true;
+    }
+
+    public int[] intersect(int[] nums1, int[] nums2) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for(Integer i :nums1) {
+            map.put(i, map.getOrDefault(i, 0)+1);
+        }
+
+        List<Integer> list = new ArrayList<>();
+        for (Integer i : nums2) {
+            if (map.getOrDefault(i, 0) > 0) {
+                map.put(i, map.getOrDefault(i, 0) - 1);
+                list.add(i);
+            }
+        }
+
+        int[] arr = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            arr[i] = list.get(i);
+        }
+        return arr;
+    }
+
+
 }
