@@ -33,6 +33,7 @@
 
         <activity android:name=".ioc.IocActivity"/>
         <activity android:name=".fragment.FragmentDemoActivity"/>
+        <activity android:name=".plugin.PluginDemoActivity"/>
 
     </application>
 

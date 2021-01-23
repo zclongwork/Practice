@@ -36,6 +36,7 @@ import com.zcl.practice.constant.ItemId;
 import com.zcl.practice.danmakuflame.DemoActivity;
 import com.zcl.practice.fragment.FragmentDemoActivity;
 import com.zcl.practice.ioc.IocActivity;
+import com.zcl.practice.plugin.PluginDemoActivity;
 import com.zcl.practice.rx.RxJavaDemoActivity;
 
 import java.util.ArrayList;
@@ -324,7 +325,8 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(this, IocActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_send) {
-
+            Intent i = new Intent(this, PluginDemoActivity.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

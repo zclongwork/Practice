@@ -41,11 +41,11 @@ public class FragmentDemoActivity extends FragmentActivity {
 
 //        mFragmentList.add(new TitleBean("热门热门热门热门热门热门", 1));
         mFragmentList.add(new TitleBean("热门", 1));
-        mFragmentList.add(new TitleBean("Demo2", 2));
-        mFragmentList.add(new TitleBean("Demo3", 3));
-        mFragmentList.add(new TitleBean("热门2", 1));
-        mFragmentList.add(new TitleBean("Demo4", 2));
-        mFragmentList.add(new TitleBean("Demo5", 3));
+        mFragmentList.add(new TitleBean("lottie测试", 2));
+//        mFragmentList.add(new TitleBean("Demo3", 3));
+//        mFragmentList.add(new TitleBean("热门2", 1));
+//        mFragmentList.add(new TitleBean("Demo4", 2));
+//        mFragmentList.add(new TitleBean("Demo5", 3));
         mIndicator = findViewById(R.id.indicator);
         mViewPager = findViewById(R.id.viewPager);
         mAdapter = new FindPagerAdapter(this, getSupportFragmentManager(), mFragmentList);

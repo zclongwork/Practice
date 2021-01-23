@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.zcl.practice.plugin.LoadUtil;
 
 /**
  * Description Application
@@ -22,6 +23,7 @@ public class App extends Application {
         super.onCreate();
         sAppContext = getApplicationContext();
         Fresco.initialize(this);
+        LoadUtil.loadClass(this);
     }
     
     public static Context getAppContext() {
