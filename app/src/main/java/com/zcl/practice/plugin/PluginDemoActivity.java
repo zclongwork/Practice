@@ -1,5 +1,7 @@
 package com.zcl.practice.plugin;
 
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +37,15 @@ public class PluginDemoActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 runPluginMethod2();
+            }
+        });
+
+        findViewById(R.id.plugin_apk_act).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName("com.zcl.plugin", "com.zcl.plugin.MainActivity"));
+                startActivity(intent);
             }
         });
     }

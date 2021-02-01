@@ -24,8 +24,8 @@ public class App extends Application {
         super.onCreate();
         sAppContext = getApplicationContext();
         Fresco.initialize(this);
-        LoadUtil.loadClass(this);
-        HookUtil.hookAms();
+//        LoadUtil.loadClass(this);
+//        HookUtil.hookAms();
     }
     
     public static Context getAppContext() {

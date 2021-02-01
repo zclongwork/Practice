@@ -319,9 +319,9 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(this, RxJavaDemoActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_manage) {
-
+            Intent i = new Intent(this, ToolsActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_share) {
-
             Intent i = new Intent(this, IocActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_send) {

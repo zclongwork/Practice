@@ -9,25 +9,28 @@
              android:orientation="vertical"
              tools:context=".MainActivity" >
 
-    <Button
-        android:id="@+id/plugin_dex"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="调用dex插件方法"
+        android:text="通知可查看demo：https://github.com/android/user-interface-samples/tree/main/Notifications"
+        />
+
+
+
+    <Button
+        android:id="@+id/notify_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="通知"
         />
 
     <Button
-        android:id="@+id/plugin_apk"
+        android:id="@+id/notify_pic_big"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="apk插件普通方法"
+        android:text="大图通知"
         />
 
-    <Button
-        android:id="@+id/plugin_apk_act"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="插件Activity"
-        />
 
 </LinearLayout>
