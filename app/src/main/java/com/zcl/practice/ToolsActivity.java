@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.service.notification.StatusBarNotification;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -20,14 +21,20 @@ import android.widget.RemoteViews;
 import androidx.annotation.Nullable;
 
 import com.zcl.practice.plugin.PluginDemoActivity;
+import com.zcl.practice.proxy.Subject;
+import com.zcl.practice.proxy.SubjectImpl;
+import com.zcl.practice.proxy.SubjectProxy;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
 import java.net.HttpURLConnection;
 
 import java.net.URISyntaxException;
 import java.net.URL;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 
@@ -51,6 +58,7 @@ public class ToolsActivity extends BaseActivity implements View.OnClickListener 
         mContext = this;
         findViewById(R.id.notify_pic).setOnClickListener(this);
         findViewById(R.id.notify_pic_big).setOnClickListener(this);
+        findViewById(R.id.proxy).setOnClickListener(this);
     }
 
 //    Bitmap bitmap = getBitmapFromURL("https://vi3.xiu123.cn/live/2020/11/23/14/1010v1606114240760959616_b.webp");
@@ -61,6 +69,9 @@ public class ToolsActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
 
         switch (v.getId()) {
+            case R.id.notify_status:
+                status();
+                break;
             case R.id.notify_pic:
                 def();
                 break;
@@ -81,9 +92,35 @@ public class ToolsActivity extends BaseActivity implements View.OnClickListener 
                     }
                 }).start();
                 break;
+            case R.id.proxy:
+                testProxy();
+                break;
             default:
                 break;
         }
+    }
+
+    private void status() {
+//        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+//        notificationManager.areNotificationsEnabled();
+
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= 23) {
+//            StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
+        }
+
+    }
+
+
+    private void testProxy() {
+        Subject subject = new SubjectImpl();
+        InvocationHandler subjectProxy = new SubjectProxy(subject);
+
+        //动态代理第2个参数：被代理类的接口，如果有多个就传数组； 第3个参数：代理类实例
+        Subject proxyInstance = (Subject) Proxy.newProxyInstance(subjectProxy.getClass().getClassLoader(), subject.getClass().getInterfaces(), subjectProxy);
+        proxyInstance.hello("world");
     }
 
     private void def() {

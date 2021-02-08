@@ -9,6 +9,13 @@
              android:orientation="vertical"
              tools:context=".MainActivity" >
 
+    <Button
+        android:id="@+id/proxy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="proxy测试"
+        />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,6 +38,14 @@
         android:layout_height="wrap_content"
         android:text="大图通知"
         />
+
+    <Button
+        android:id="@+id/notify_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="通知状态"
+        />
+
 
 
 </LinearLayout>

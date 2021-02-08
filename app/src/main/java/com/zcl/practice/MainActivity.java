@@ -35,6 +35,7 @@ import com.zcl.practice.animation.AnimationActivity;
 import com.zcl.practice.constant.ItemId;
 import com.zcl.practice.danmakuflame.DemoActivity;
 import com.zcl.practice.fragment.FragmentDemoActivity;
+import com.zcl.practice.fragment.PageGridActivity;
 import com.zcl.practice.ioc.IocActivity;
 import com.zcl.practice.plugin.PluginDemoActivity;
 import com.zcl.practice.rx.RxJavaDemoActivity;
@@ -218,6 +219,9 @@ public class MainActivity extends AppCompatActivity
                     case ItemId.FRAGMENT:
                         startActivity(new Intent(MainActivity.this, FragmentDemoActivity.class));
                         break;
+                    case ItemId.GRID:
+                        startActivity(new Intent(MainActivity.this, PageGridActivity.class));
+                        break;
                     default:
                         break;
                 }
@@ -230,7 +234,7 @@ public class MainActivity extends AppCompatActivity
     private List<ListItem> getData() {
         List<ListItem> data = new ArrayList<>();
         data.add(new ListItem(ItemId.FRAGMENT,"Fragment"));
-        data.add(new ListItem(1,"设计"));
+        data.add(new ListItem(ItemId.GRID,"横向分页的GridView效果"));
         return data;
     }
     
