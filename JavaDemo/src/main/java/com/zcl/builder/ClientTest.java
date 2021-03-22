@@ -19,5 +19,19 @@ public class ClientTest {
         ProductCar car = director.construct();
         
         System.out.println(car.toString());
+
+
+
+
+        //以下是builder的简单实现
+
+        SimpleCar simpleCar = new SimpleCar.Builder("宝马发动机", "宝马车架", "马牌轮胎")
+                .setAirCondition("格力空调")
+                .setTv("海尔电视")
+                .build();
+
+        System.out.println(simpleCar.toString());
+
+
     }
 }

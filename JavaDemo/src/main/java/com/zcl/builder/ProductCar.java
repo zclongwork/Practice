@@ -10,13 +10,11 @@ package com.zcl.builder;
  * @since 2019-11-21
  */
 public class ProductCar {
-    
-    private String wheel;
-    
-    private String frame;
-    
+
     private String engine;
-    
+    private String frame;
+    private String wheel;
+
     public String getWheel() {
         return wheel;
     }
@@ -40,13 +38,14 @@ public class ProductCar {
     public void setEngine(String engine) {
         this.engine = engine;
     }
-    
+
+
     @Override
     public String toString() {
-        return "ProductCar ["
-                + "wheel:" + wheel
-                + "frame:" + frame
-                + "engine:" + engine
-                +"]";
+        return "ProductCar{" +
+                "engine='" + engine + '\'' +
+                ", frame='" + frame + '\'' +
+                ", wheel='" + wheel + '\'' +
+                '}';
     }
 }
