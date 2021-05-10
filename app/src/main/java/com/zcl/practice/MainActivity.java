@@ -36,6 +36,7 @@ import com.zcl.practice.constant.ItemId;
 import com.zcl.practice.danmakuflame.DemoActivity;
 import com.zcl.practice.fragment.FragmentDemoActivity;
 import com.zcl.practice.fragment.PageGridActivity;
+import com.zcl.practice.fragment.PageZoomActivity;
 import com.zcl.practice.ioc.IocActivity;
 import com.zcl.practice.plugin.PluginDemoActivity;
 import com.zcl.practice.rx.RxJavaDemoActivity;
@@ -222,6 +223,9 @@ public class MainActivity extends AppCompatActivity
                     case ItemId.GRID:
                         startActivity(new Intent(MainActivity.this, PageGridActivity.class));
                         break;
+                    case ItemId.ZOOM:
+                        startActivity(new Intent(MainActivity.this, PageZoomActivity.class));
+                        break;
                     default:
                         break;
                 }
@@ -235,6 +239,7 @@ public class MainActivity extends AppCompatActivity
         List<ListItem> data = new ArrayList<>();
         data.add(new ListItem(ItemId.FRAGMENT,"Fragment"));
         data.add(new ListItem(ItemId.GRID,"横向分页的GridView效果"));
+        data.add(new ListItem(ItemId.ZOOM,"滑动缩放效果"));
         return data;
     }
     

@@ -49,6 +49,7 @@ public class RxJavaDemoActivity extends BaseActivity implements View.OnClickList
     
         setContentView(R.layout.activity_rx_demo);
         mRecycleView = (RecyclerView) findViewById(R.id.recycler_view);
+        findViewById(R.id.bt_test).setOnClickListener(this);
         findViewById(R.id.bt_search).setOnClickListener(this);
         findViewById(R.id.bt_show).setOnClickListener(this);
         findViewById(R.id.bt_play).setOnClickListener(this);
@@ -59,6 +60,10 @@ public class RxJavaDemoActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+        case R.id.bt_test:
+//            RxJavaTest.test();
+            RxJavaTest.test2();
+            break;
         case R.id.bt_search:
             scanMp4File();
 //            scanFileAsync(RxJavaDemoActivity.this, "/sdcard/Android/data/com.ss.android.article.news/cache/hashedvideos/");
