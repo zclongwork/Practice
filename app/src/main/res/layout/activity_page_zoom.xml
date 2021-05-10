@@ -28,6 +28,6 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="addMore"
+        android:onClick="click"
         android:text="下一页" />
 </LinearLayout>

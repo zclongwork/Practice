@@ -1,12 +1,10 @@
 package com.zcl.practice.layoutManager;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.animation.LinearInterpolator;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +12,8 @@ import java.util.List;
 
 
 public class ZoomLayoutManager extends RecyclerView.LayoutManager {
+
+    private static final String TAG = "ZoomLayoutManager";
 
     /**
      * 一次完整的聚焦滑动所需要的移动距离
@@ -38,7 +38,8 @@ public class ZoomLayoutManager extends RecyclerView.LayoutManager {
     /**
      * 水平方向累计偏移量
      */
-    private long mHorizontalOffset;
+//    private long mHorizontalOffset;
+    private long mVerticalOffset;
 
     /**
      * 普通view之间的margin
@@ -46,6 +47,7 @@ public class ZoomLayoutManager extends RecyclerView.LayoutManager {
     private float normalViewGap = 30;
 
     private int childWidth = 0;
+    private int childHeight = 0;
 
     /**
      * 是否自动选中
@@ -87,37 +89,35 @@ public class ZoomLayoutManager extends RecyclerView.LayoutManager {
         fill(recycler, state, 0);
     }
 
-    private int fill(RecyclerView.Recycler recycler, RecyclerView.State state, int dx) {
-        int resultDelta = dx;
-        resultDelta = fillHorizontalLeft(recycler, state, dx);
+    private int fill(RecyclerView.Recycler recycler, RecyclerView.State state, int dy) {
+        int resultDelta = dy;
+        resultDelta = fillVerticalLeft(recycler, state, dy);
         recycleChildren(recycler);
         return resultDelta;
     }
 
     @Override
-    public boolean canScrollHorizontally() {
+    public boolean canScrollVertically() {
         return true;
     }
 
-
     @Override
-    public int scrollHorizontallyBy(int dx, RecyclerView.Recycler recycler, RecyclerView.State state) {
-        // 手指从右向左滑动，dx > 0; 手指从左向右滑动，dx < 0;
-        // 位移0、没有子View 当然不移动
-        if (dx == 0 || getChildCount() == 0) {
+    public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler, RecyclerView.State state) {
+        if (dy == 0 || getChildCount() == 0) {
             return 0;
         }
 
-        float realDx = dx / 1.0f;
+        float realDx = dy / 1.0f;
         if (Math.abs(realDx) < 0.00000001f) {
             return 0;
         }
 
-        mHorizontalOffset += dx;
+        mVerticalOffset += dy;
 
-        dx = fill(recycler, state, dx);
+        dy = fill(recycler, state, dy);
 
-        return dx;
+
+        return dy;
     }
 
     /**
@@ -126,9 +126,9 @@ public class ZoomLayoutManager extends RecyclerView.LayoutManager {
      * @return
      */
     private float getMaxOffset() {
-        if (childWidth == 0 || getItemCount() == 0) return 0;
+        if (childHeight == 0 || getItemCount() == 0) return 0;
         // getWidth() / 2 + childWidth / 2 +
-        return (childWidth + normalViewGap) * (getItemCount() - 1);
+        return (childHeight/2 + normalViewGap) * (getItemCount() - 1);
     }
 
     /**
@@ -137,34 +137,34 @@ public class ZoomLayoutManager extends RecyclerView.LayoutManager {
      * @return
      */
     private float getMinOffset() {
-        if (childWidth == 0) return 0;
-        return (getWidth() - childWidth) / 2;
+        if (childHeight == 0) return 0;
+        return (getHeight() - childHeight) / 2;
     }
 
-    private int fillHorizontalLeft(RecyclerView.Recycler recycler, RecyclerView.State state, int dx) {
+    private int fillVerticalLeft(RecyclerView.Recycler recycler, RecyclerView.State state, int dy) {
         //----------------1、边界检测-----------------
-        if (dx < 0) {
-            // 已到达左边界
-            if (mHorizontalOffset < 0) {
-                mHorizontalOffset = dx = 0;
+        if (dy < 0) {
+            // 已到达上边界
+            if (mVerticalOffset < 0) {
+                mVerticalOffset = dy = 0;
             }
         }
 
-        if (dx > 0) {
-            if (mHorizontalOffset >= getMaxOffset()) {
-                // 因为在因为scrollHorizontallyBy里加了一次dx，现在减回去
-                // mHorizontalOffset -= dx;
-                mHorizontalOffset = (long) getMaxOffset();
-                dx = 0;
+        //由下向上滑动
+        if (dy > 0) {
+            if (mVerticalOffset >= getMaxOffset()) {
+                mVerticalOffset = (long) getMaxOffset();
+                dy = 0;
             }
         }
+
 
         // 分离全部的view，加入到临时缓存
         detachAndScrapAttachedViews(recycler);
 
         float startX = 0;
+        float startY = 0;
         float fraction = 0f;
-        boolean isChildLayoutLeft = true;
 
         View tempView = null;
         int tempPosition = -1;
@@ -175,20 +175,21 @@ public class ZoomLayoutManager extends RecyclerView.LayoutManager {
             tempView = recycler.getViewForPosition(tempPosition);
             measureChildWithMargins(tempView, 0, 0);
             childWidth = getDecoratedMeasurementHorizontal(tempView);
+            childHeight = getDecoratedMeasurementVertical(tempView);
         }
 
         // 修正第一个可见view mFirstVisiPos 已经滑动了多少个完整的onceCompleteScrollLength就代表滑动了多少个item
-        firstChildCompleteScrollLength = getWidth() / 2 + childWidth / 2;
-        if (mHorizontalOffset >= firstChildCompleteScrollLength) {
+        firstChildCompleteScrollLength = getHeight() / 2 + childHeight / 2;
+        if (mVerticalOffset >= firstChildCompleteScrollLength) {
             startX = normalViewGap;
-            onceCompleteScrollLength = childWidth + normalViewGap;
-            mFirstVisiPos = (int) Math.floor(Math.abs(mHorizontalOffset - firstChildCompleteScrollLength) / onceCompleteScrollLength) + 1;
-            fraction = (Math.abs(mHorizontalOffset - firstChildCompleteScrollLength) % onceCompleteScrollLength) / (onceCompleteScrollLength * 1.0f);
+            onceCompleteScrollLength = childHeight + normalViewGap;
+            mFirstVisiPos = (int) Math.floor(Math.abs(mVerticalOffset - firstChildCompleteScrollLength) / onceCompleteScrollLength) + 1;
+            fraction = (Math.abs(mVerticalOffset - firstChildCompleteScrollLength) % onceCompleteScrollLength) / (onceCompleteScrollLength * 1.0f);
         } else {
             mFirstVisiPos = 0;
             startX = getMinOffset();
             onceCompleteScrollLength = firstChildCompleteScrollLength;
-            fraction = (Math.abs(mHorizontalOffset) % onceCompleteScrollLength) / (onceCompleteScrollLength * 1.0f);
+            fraction = (Math.abs(mVerticalOffset) % onceCompleteScrollLength) / (onceCompleteScrollLength * 1.0f);
         }
 
         // 临时将mLastVisiPos赋值为getItemCount() - 1，放心，下面遍历时会判断view是否已溢出屏幕，并及时修正该值并结束布局
@@ -199,6 +200,8 @@ public class ZoomLayoutManager extends RecyclerView.LayoutManager {
 
         //----------------3、开始布局-----------------
         for (int i = mFirstVisiPos; i <= mLastVisiPos; i++) {
+//            Log.i(TAG, "布局 for i=" + i);
+
             View item;
             if (i == tempPosition && tempView != null) {
                 // 如果初始化数据时已经取了一个临时view
@@ -207,7 +210,7 @@ public class ZoomLayoutManager extends RecyclerView.LayoutManager {
                 item = recycler.getViewForPosition(i);
             }
 
-            int focusPosition = (int) (Math.abs(mHorizontalOffset) / (childWidth + normalViewGap));
+            int focusPosition = (int) (Math.abs(mVerticalOffset) / (childWidth + normalViewGap));
             if (i <= focusPosition) {
                 addView(item);
             } else {
@@ -216,29 +219,26 @@ public class ZoomLayoutManager extends RecyclerView.LayoutManager {
             measureChildWithMargins(item, 0, 0);
 
             if (!isNormalViewOffsetSetted) {
-                startX -= normalViewOffset;
+                startY += normalViewOffset;
                 isNormalViewOffsetSetted = true;
             }
 
             int l, t, r, b;
-            l = (int) startX;
-            t = getPaddingTop();
+//            l = (int) startX;
+            l = 0;
+            t = (int) startY;
             r = l + getDecoratedMeasurementHorizontal(item);
             b = t + getDecoratedMeasurementVertical(item);
 
             // 缩放子view
             final float minScale = 0.6f;
             float currentScale = 0f;
-            final int childCenterX = (r + l) / 2;
-            final int parentCenterX = getWidth() / 2;
-            isChildLayoutLeft = childCenterX <= parentCenterX;
-            if (isChildLayoutLeft) {
-                final float fractionScale = (parentCenterX - childCenterX) / (parentCenterX * 1.0f);
-                currentScale = 1.0f - (1.0f - minScale) * fractionScale;
-            } else {
-                final float fractionScale = (childCenterX - parentCenterX) / (parentCenterX * 1.0f);
-                currentScale = 1.0f - (1.0f - minScale) * fractionScale;
-            }
+
+            final float fractionScale = Math.abs(mVerticalOffset) / (getMaxOffset() * 1.0f);
+            currentScale = 1.0f - (1.0f - minScale) * fractionScale;
+
+//            Log.i(TAG, String.format("currentScale=%s l=%s t=%s r=%s b=%s dy=%s", currentScale , l , t, r, b, dy));
+
             item.setScaleX(currentScale);
             item.setScaleY(currentScale);
             // item.setAlpha(currentScale);
@@ -246,14 +246,10 @@ public class ZoomLayoutManager extends RecyclerView.LayoutManager {
             layoutDecoratedWithMargins(item, l, t, r, b);
 
             startX += (childWidth + normalViewGap);
-
-            if (startX > getWidth() - getPaddingRight()) {
-                mLastVisiPos = i;
-                break;
-            }
+            startY += (childHeight + normalViewGap);
         }
 
-        return dx;
+        return dy;
     }
 
     @Override
@@ -265,10 +261,14 @@ public class ZoomLayoutManager extends RecyclerView.LayoutManager {
                 cancelAnimator();
                 break;
             case RecyclerView.SCROLL_STATE_IDLE:
+
+//                mVerticalOffset = 0;
+
+
                 //当列表滚动停止后，判断一下自动选中是否打开
                 if (isAutoSelect) {
                     //找到离目标落点最近的item索引
-                    smoothScrollToPosition(findShouldSelectPosition(), null);
+//                    smoothScrollToPosition(findShouldSelectPosition(), null);
                 }
                 break;
             default:
@@ -276,20 +276,20 @@ public class ZoomLayoutManager extends RecyclerView.LayoutManager {
         }
     }
 
-    public int findShouldSelectPosition() {
-        if (onceCompleteScrollLength == -1 || mFirstVisiPos == -1) {
-            return -1;
-        }
-        int position = (int) (Math.abs(mHorizontalOffset) / (childWidth + normalViewGap));
-        int remainder = (int) (Math.abs(mHorizontalOffset) % (childWidth + normalViewGap));
-        // 超过一半，应当选中下一项
-        if (remainder >= (childWidth + normalViewGap) / 2.0f) {
-            if (position + 1 <= getItemCount() - 1) {
-                return position + 1;
-            }
-        }
-        return position;
-    }
+//    public int findShouldSelectPosition() {
+//        if (onceCompleteScrollLength == -1 || mFirstVisiPos == -1) {
+//            return -1;
+//        }
+//        int position = (int) (Math.abs(mHorizontalOffset) / (childWidth + normalViewGap));
+//        int remainder = (int) (Math.abs(mHorizontalOffset) % (childWidth + normalViewGap));
+//        // 超过一半，应当选中下一项
+//        if (remainder >= (childWidth + normalViewGap) / 2.0f) {
+//            if (position + 1 <= getItemCount() - 1) {
+//                return position + 1;
+//            }
+//        }
+//        return position;
+//    }
 
     /**
      * 平滑滚动到某个位置
@@ -303,43 +303,43 @@ public class ZoomLayoutManager extends RecyclerView.LayoutManager {
     }
 
     private void startValueAnimator(int position, final StackLayoutManager.OnStackListener listener) {
-        cancelAnimator();
-
-        final float distance = getScrollToPositionOffset(position);
-
-        long minDuration = 100;
-        long maxDuration = 300;
-        long duration;
-
-        float distanceFraction = (Math.abs(distance) / (childWidth + normalViewGap));
-
-        if (distance <= (childWidth + normalViewGap)) {
-            duration = (long) (minDuration + (maxDuration - minDuration) * distanceFraction);
-        } else {
-            duration = (long) (maxDuration * distanceFraction);
-        }
-        selectAnimator = ValueAnimator.ofFloat(0.0f, distance);
-        selectAnimator.setDuration(duration);
-        selectAnimator.setInterpolator(new LinearInterpolator());
-        final float startedOffset = mHorizontalOffset;
-        selectAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float value = (float) animation.getAnimatedValue();
-                mHorizontalOffset = (long) (startedOffset + value);
-                requestLayout();
-            }
-        });
-        selectAnimator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                if (listener != null) {
-                    listener.onFocusAnimEnd();
-                }
-            }
-        });
-        selectAnimator.start();
+//        cancelAnimator();
+//
+//        final float distance = getScrollToPositionOffset(position);
+//
+//        long minDuration = 100;
+//        long maxDuration = 300;
+//        long duration;
+//
+//        float distanceFraction = (Math.abs(distance) / (childWidth + normalViewGap));
+//
+//        if (distance <= (childWidth + normalViewGap)) {
+//            duration = (long) (minDuration + (maxDuration - minDuration) * distanceFraction);
+//        } else {
+//            duration = (long) (maxDuration * distanceFraction);
+//        }
+//        selectAnimator = ValueAnimator.ofFloat(0.0f, distance);
+//        selectAnimator.setDuration(duration);
+//        selectAnimator.setInterpolator(new LinearInterpolator());
+//        final float startedOffset = mHorizontalOffset;
+//        selectAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator animation) {
+//                float value = (float) animation.getAnimatedValue();
+//                mHorizontalOffset = (long) (startedOffset + value);
+//                requestLayout();
+//            }
+//        });
+//        selectAnimator.addListener(new AnimatorListenerAdapter() {
+//            @Override
+//            public void onAnimationEnd(Animator animation) {
+//                super.onAnimationEnd(animation);
+//                if (listener != null) {
+//                    listener.onFocusAnimEnd();
+//                }
+//            }
+//        });
+//        selectAnimator.start();
     }
 
     /**
@@ -347,7 +347,8 @@ public class ZoomLayoutManager extends RecyclerView.LayoutManager {
      * @return
      */
     private float getScrollToPositionOffset(int position) {
-        return position * (childWidth + normalViewGap) - Math.abs(mHorizontalOffset);
+//        return position * (childWidth + normalViewGap) - Math.abs(mHorizontalOffset);
+        return 0;
     }
 
     /**

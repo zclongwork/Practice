@@ -68,8 +68,10 @@ public class ZoomAdapter extends RecyclerView.Adapter<ZoomAdapter.MyViewHolder> 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "item" + title + " 被点击了", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(v.getContext(), "item" + title + " 被点击了", Toast.LENGTH_SHORT).show();
 
+//                v.setScaleX(1.2f);
+//                v.setScaleY(1.3f);
 
             }
         });

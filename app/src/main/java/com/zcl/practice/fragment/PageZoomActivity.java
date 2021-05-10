@@ -8,12 +8,14 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zcl.practice.R;
 import com.zcl.practice.layoutManager.StackLayoutManager;
 import com.zcl.practice.layoutManager.TopHeavyLayoutManager;
 import com.zcl.practice.layoutManager.TopSnapHelper;
+import com.zcl.practice.layoutManager.ZoomLayoutManager;
 
 public class PageZoomActivity extends FragmentActivity {
 
@@ -27,10 +29,7 @@ public class PageZoomActivity extends FragmentActivity {
         setContentView(R.layout.activity_page_zoom);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
-//        mRecyclerView.setLayoutManager(new StackLayoutManager(this));
 //        mRecyclerView.addOnItemTouchListener(new ZoomScale());
-
         mAdapter = new ZoomAdapter();
         mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
@@ -43,10 +42,11 @@ public class PageZoomActivity extends FragmentActivity {
         mRecyclerView.setAdapter(mAdapter);
 
 
-
-        mRecyclerView.setLayoutManager(new TopHeavyLayoutManager());
-        TopSnapHelper helper = new TopSnapHelper(2);
-        helper.attachToRecyclerView(mRecyclerView);
+//        mRecyclerView.setLayoutManager(new StackLayoutManager(this));
+        mRecyclerView.setLayoutManager(new ZoomLayoutManager(this));
+//        mRecyclerView.setLayoutManager(new TopHeavyLayoutManager());
+//        TopSnapHelper helper = new TopSnapHelper(2);
+//        helper.attachToRecyclerView(mRecyclerView);
     }
 
 
@@ -128,5 +128,9 @@ public class PageZoomActivity extends FragmentActivity {
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             return false;
         }
+    }
+
+    public void click(View view) {
+
     }
 }
