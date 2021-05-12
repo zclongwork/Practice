@@ -216,15 +216,15 @@ public class ZoomLayoutManager extends RecyclerView.LayoutManager {
             }
             measureChildWithMargins(item, 0, 0);
 
-            if (!isNormalViewOffsetSetted) {
-                if (mVerticalOffset < 0) {
-                    startY += normalViewOffset/2;
-                } else {
-                    startY -= normalViewOffset* (1f-minScale);
-                }
-//                Log.e(TAG, String.format("isNormalViewOffsetSetted startY=%s i=%s", startY, i));
-                isNormalViewOffsetSetted = true;
-            }
+//            if (!isNormalViewOffsetSetted) {
+//                if (mVerticalOffset < 0) {
+//                    startY += normalViewOffset/2;
+//                } else {
+//                    startY -= normalViewOffset* (1f-minScale);
+//                }
+////                Log.e(TAG, String.format("isNormalViewOffsetSetted startY=%s i=%s", startY, i));
+//                isNormalViewOffsetSetted = true;
+//            }
 
             float currentScale = 0f;
 
@@ -232,15 +232,15 @@ public class ZoomLayoutManager extends RecyclerView.LayoutManager {
 
             if (mVerticalOffset < 0) {
                 if (i == 0) {
-                    currentScale = 1.0f + (maxScale - 1.0f) * fractionScale;
+                    currentScale = defaultScale + (maxScale - defaultScale) * fractionScale;
                 } else {
-                    currentScale = 1.0f - (1.0f - minScale) * fractionScale;
+                    currentScale = defaultScale - (defaultScale - minScale) * fractionScale;
                 }
             } else {
                 if (i == 0) {
-                    currentScale = 1.0f - (1.0f - minScale) * fractionScale;
+                    currentScale = defaultScale - (defaultScale - minScale) * fractionScale;
                 } else {
-                    currentScale = 1.0f + (maxScale - 1.0f) * fractionScale;
+                    currentScale = defaultScale + (maxScale - defaultScale) * fractionScale;
                 }
             }
 
@@ -254,7 +254,13 @@ public class ZoomLayoutManager extends RecyclerView.LayoutManager {
 
             item.setScaleX(currentScale);
             item.setScaleY(currentScale);
-            // item.setAlpha(currentScale);
+
+            if (currentScale < defaultScale) {
+                float alpha = 1 - (defaultScale - currentScale) / (2f * (defaultScale - minScale));
+                item.setAlpha(alpha);
+            } else {
+                item.setAlpha(1);
+            }
 
             layoutDecoratedWithMargins(item, l, t, r, b);
 
@@ -265,8 +271,10 @@ public class ZoomLayoutManager extends RecyclerView.LayoutManager {
     }
 
     // 缩放子view
-    final float minScale = 0.7f;
-    final float maxScale = 1.2f;
+    final float minScale = 0.8f;
+    final float maxScale = 1f;
+
+    final float defaultScale = 0.9f;
 
     @Override
     public void onScrollStateChanged(int state) {
@@ -357,7 +365,14 @@ public class ZoomLayoutManager extends RecyclerView.LayoutManager {
      * @return
      */
     private float getScrollToPositionOffset(int position) {
-        float offset = getMaxOffset() -  Math.abs(mVerticalOffset);
+        float offset;
+        if (position == 1) {
+            offset = getMaxOffset() -  mVerticalOffset;
+        } else {
+            offset = getMinOffset() - mVerticalOffset;
+        }
+
+
         Log.i(TAG, position + " mVerticalOffset=" + mVerticalOffset + " offset=" + offset);
 //        Log.i(TAG, position + " offset=" + offset);
         return offset;
@@ -370,6 +385,14 @@ public class ZoomLayoutManager extends RecyclerView.LayoutManager {
         if (selectAnimator != null && (selectAnimator.isStarted() || selectAnimator.isRunning())) {
             selectAnimator.cancel();
         }
+    }
+
+    /**
+     * 状态回归
+     */
+    public void rollBack() {
+        mVerticalOffset = 0;
+        requestLayout();
     }
 
     /**
