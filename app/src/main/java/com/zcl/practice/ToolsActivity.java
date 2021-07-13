@@ -20,6 +20,8 @@ import android.widget.RemoteViews;
 
 import androidx.annotation.Nullable;
 
+import com.zcl.library.demo.DemoRequest;
+import com.zcl.library.net.LogUtils;
 import com.zcl.practice.plugin.PluginDemoActivity;
 import com.zcl.practice.proxy.Subject;
 import com.zcl.practice.proxy.SubjectImpl;
@@ -36,6 +38,10 @@ import java.net.URL;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+
+import io.reactivex.annotations.NonNull;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -59,6 +65,7 @@ public class ToolsActivity extends BaseActivity implements View.OnClickListener 
         findViewById(R.id.notify_pic).setOnClickListener(this);
         findViewById(R.id.notify_pic_big).setOnClickListener(this);
         findViewById(R.id.proxy).setOnClickListener(this);
+        findViewById(R.id.btn_net).setOnClickListener(this);
     }
 
 //    Bitmap bitmap = getBitmapFromURL("https://vi3.xiu123.cn/live/2020/11/23/14/1010v1606114240760959616_b.webp");
@@ -94,6 +101,26 @@ public class ToolsActivity extends BaseActivity implements View.OnClickListener 
                 break;
             case R.id.proxy:
                 testProxy();
+                break;
+            case R.id.btn_net:
+                DemoRequest.getAd().observeOn(Schedulers.io())
+                    .subscribe(new DisposableObserver<String>() {
+                        @Override
+                        public void onNext(@NonNull String s) {
+                            LogUtils.d(TAG, s);
+                            onComplete();
+                        }
+
+                        @Override
+                        public void onError(@NonNull Throwable e) {
+                            onComplete();
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            dispose();
+                        }
+                    });
                 break;
             default:
                 break;
