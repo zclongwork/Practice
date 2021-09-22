@@ -10,17 +10,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import androidx.annotation.NonNull;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +18,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.zcl.library.util.adapter.SimpleBaseAdapter;
 import com.zcl.library.util.adapter.ViewHolder;
 import com.zcl.practice.animation.AnimationActivity;
@@ -43,6 +35,15 @@ import com.zcl.practice.rx.RxJavaDemoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -72,7 +73,76 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
-    
+
+    private List<ListItem> getData() {
+        List<ListItem> data = new ArrayList<>();
+        data.add(new ListItem(ItemId.FRAGMENT,"Fragment"));
+        data.add(new ListItem(ItemId.GRID,"横向分页的GridView效果"));
+        data.add(new ListItem(ItemId.ZOOM,"滑动缩放效果"));
+        data.add(new ListItem(ItemId.UI,"高级UI"));
+        return data;
+    }
+
+
+    private void initView() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        ListView listView = (ListView) findViewById(R.id.list);
+
+        final List<ListItem> data = getData();
+
+        ListAdapter adapter = new ListAdapter(this, data);
+
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                ListItem item = data.get(position);
+                int itemId = item.id;
+                switch (itemId) {
+                    case ItemId.FRAGMENT:
+                        startActivity(new Intent(MainActivity.this, FragmentDemoActivity.class));
+                        break;
+                    case ItemId.GRID:
+                        startActivity(new Intent(MainActivity.this, PageGridActivity.class));
+                        break;
+                    case ItemId.ZOOM:
+                        startActivity(new Intent(MainActivity.this, PageZoomActivity.class));
+                        break;
+                    case ItemId.UI:
+                        SimpleFragmentActivity.startSeniorUI(MainActivity.this);
+                        break;
+                    default:
+                        break;
+                }
+
+
+            }
+        });
+    }
+
+
     
     // 提示用户该请求权限的弹出框
     private void showDialogTipUserRequestPermission() {
@@ -178,69 +248,6 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         }
-    }
-    
-    private void initView() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-    
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-    
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-    
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-    
-        ListView listView = (ListView) findViewById(R.id.list);
-        
-        final List<ListItem> data = getData();
-        
-        ListAdapter adapter = new ListAdapter(this, data);
-        
-        listView.setAdapter(adapter);
-        
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                ListItem item = data.get(position);
-                int itemId = item.id;
-                switch (itemId) {
-                    case ItemId.FRAGMENT:
-                        startActivity(new Intent(MainActivity.this, FragmentDemoActivity.class));
-                        break;
-                    case ItemId.GRID:
-                        startActivity(new Intent(MainActivity.this, PageGridActivity.class));
-                        break;
-                    case ItemId.ZOOM:
-                        startActivity(new Intent(MainActivity.this, PageZoomActivity.class));
-                        break;
-                    default:
-                        break;
-                }
-
-
-            }
-        });
-    }
-    
-    private List<ListItem> getData() {
-        List<ListItem> data = new ArrayList<>();
-        data.add(new ListItem(ItemId.FRAGMENT,"Fragment"));
-        data.add(new ListItem(ItemId.GRID,"横向分页的GridView效果"));
-        data.add(new ListItem(ItemId.ZOOM,"滑动缩放效果"));
-        return data;
     }
     
     static class ListAdapter extends SimpleBaseAdapter<ListItem> {

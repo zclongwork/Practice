@@ -1,11 +1,10 @@
 package com.zcl.practice;
 
-import android.app.Application;
 import android.content.Context;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.zcl.practice.plugin.HookUtil;
-import com.zcl.practice.plugin.LoadUtil;
+
+import androidx.multidex.MultiDexApplication;
 
 /**
  * Description Application
@@ -13,7 +12,7 @@ import com.zcl.practice.plugin.LoadUtil;
  * Date 17/12/21 11:43
  */
 
-public class App extends Application {
+public class App extends MultiDexApplication {
     
     public static final boolean GLOBAL_DEBUG = BuildConfig.DEBUG;
     /** Application context */

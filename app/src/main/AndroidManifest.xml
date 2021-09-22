@@ -40,6 +40,7 @@
         <activity android:name=".plugin.PluginDemoActivity"/>
         <activity android:name=".plugin.ProxyActivity"/>
         <activity android:name=".ToolsActivity"/>
+        <activity android:name=".SimpleFragmentActivity"/>
 
 
     </application>

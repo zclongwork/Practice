@@ -17,4 +17,7 @@
 
     <string name="release">release</string>
     <string name="rotate">旋转屏幕</string>
+
+    <string name="senior_ui">高级UI</string>
+    <string name="senior_ui_1">自定义View</string>
 </resources>
