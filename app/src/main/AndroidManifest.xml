@@ -26,6 +26,7 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".AdapterCountDownActivity"/>
         <activity android:name=".animation.AnimationActivity"/>
         <activity android:name=".danmakuflame.DemoActivity"/>
         <activity android:name=".rx.RxJavaDemoActivity"
@@ -33,6 +34,7 @@
 
         <activity android:name=".ioc.IocActivity"/>
         <activity android:name=".fragment.FragmentDemoActivity"/>
+        <activity android:name=".opengl.MainActivity"/>
         <activity android:name=".fragment.PageGridActivity"/>
         <activity android:name=".fragment.PageZoomActivity"/>
         <activity android:name=".plugin.PluginDemoActivity"/>

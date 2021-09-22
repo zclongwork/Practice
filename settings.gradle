@@ -1,2 +1,4 @@
 include ':plugin'
 include ':app', ':lib', ':library', ':JavaDemo', ':fileloader'
+
+println("gralde settings >>>>>>> 1")
