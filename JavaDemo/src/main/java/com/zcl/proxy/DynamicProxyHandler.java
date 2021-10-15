@@ -12,6 +12,6 @@ public class DynamicProxyHandler implements InvocationHandler {
 
     @Override
     public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
-        return method.invoke(o, objects);
+        return method.invoke(mObject, objects);
     }
 }
