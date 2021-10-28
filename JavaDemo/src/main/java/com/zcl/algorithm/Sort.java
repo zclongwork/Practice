@@ -1,8 +1,5 @@
 package com.zcl.algorithm;
 
-import java.util.Arrays;
-import java.util.Random;
-
 /**
  * 1.冒泡排序
  * 2.快速排序
@@ -11,41 +8,27 @@ import java.util.Random;
 public class Sort {
 
     public static void main(String[] args) {
-//        int[] arr = {52,63,14,59,68,35,8,67,45,99};
-//
-////        selectSort(arr);
-//
-//
-//
-//        for (int i=0; i< arr.length-1;i++) {
-//            System.out.println(arr[i]);
-//        }
+        int[] arr = {52,63,14,59,68,35,8,67,45,99};
 
+        //1 冒泡排序
+//        bubble2(arr);
 
-//        int[] arr = {2,3,7,1,5};
-//        // 冒泡排序
-////        bubble(arr);
-//
-//        quickSort(arr, 0 , arr.length-1);
-//
-//        for (int i=0; i< arr.length;i++) {
-//            System.out.println(arr[i]);
-//        }
+        selectSort(arr);
 
-        Random random = new Random();
-        for (int i = 0; i < 10; i++) {
-            System.out.println(i + "=" + random.nextBoolean());
-        }
-
+        PrintUtil.arrPrint(arr);
     }
 
 
     /**
      * 1.冒泡排序：
      *
-     * 比较相邻的元素。如果第一个比第二个大，就交换他们两个。
-     * 对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。
-     * 针对所有的元素重复以上的步骤，直到没有任何一对数字需要比较。
+     * 冒泡排序算法的运作如下：
+     *
+     * 1.比较相邻的元素。如果第一个比第二个大，就交换他们两个。
+     * 2.对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。这步做完后，最后的元素会是最大的数。
+     * 3.针对所有的元素重复以上的步骤，除了最后一个。
+     * 4.持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。
+     *
      * @param arr
      * @return
      */
@@ -64,85 +47,23 @@ public class Sort {
         return arr;
     }
 
+    public static int[] bubble2(int[] arr) {
+        for (int i = 1; i < arr.length; i++) {
 
-    /**
-     * 2.快速排序
-     * @param arr
-     * @param left
-     * @param right
-     */
-    public static void quickSort(int[] arr, int left, int right) {
-        if (left >= right) {
-            return;
-        }
-
-        int pivot = partition(arr, left, right);
-        //递归基准左侧部分
-        quickSort(arr, left, pivot-1);
-        //递归基准右侧部分
-        quickSort(arr, pivot+1, right);
-    }
-
-    private static int partition(int[] arr, int left, int right) {
-        // 以最左边的数(left)为基准 这中情况是最糟的情况 调用栈很深  随机选择会使平均速度会快很多
-        int base = arr[left];
-        while (left < right) {
-            // 从序列右端开始，向左遍历，直到找到小于base的数
-            while (left < right && arr[right] >= base)
-                right--;
-            // 找到了比base小的元素，将这个元素放到最左边的位置
-            arr[left] = arr[right];
-
-            // 从序列左端开始，向右遍历，直到找到大于base的数
-            while (left < right && arr[left] <= base)
-                left++;
-            // 找到了比base大的元素，将这个元素放到最右边的位置
-            arr[right] = arr[left];
-        }
-
-        // 最后将base放到left位置。此时，left位置的左侧数值应该都比left小；
-        // 而left位置的右侧数值应该都比left大。
-        arr[left] = base;
-        return left;
-    }
-
-    public class QuickSort {
-
-        public int[] sort(int[] sourceArray) throws Exception {
-            // 对 arr 进行拷贝，不改变参数内容
-            int[] arr = Arrays.copyOf(sourceArray, sourceArray.length);
-            return quickSort(arr, 0, arr.length - 1);
-        }
-
-        private int[] quickSort(int[] arr, int left, int right) {
-            if (left < right) {
-                int partitionIndex = partition(arr, left, right);
-                quickSort(arr, left, partitionIndex - 1);
-                quickSort(arr, partitionIndex + 1, right);
-            }
-            return arr;
-        }
-
-        private int partition(int[] arr, int left, int right) {
-            // 设定基准值（pivot）
-            int pivot = left;
-            int index = pivot + 1;
-            for (int i = index; i <= right; i++) {
-                if (arr[i] < arr[pivot]) {
-                    swap(arr, i, index);
-                    index++;
+            for (int j = 0; j < arr.length - i; j++) {
+                if (arr[j] > arr[j+1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp;
                 }
             }
-            swap(arr, pivot, index - 1);
-            return index - 1;
         }
 
-        private void swap(int[] arr, int i, int j) {
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
-        }
+        return arr;
     }
+
+
+
 
 
     /**
@@ -161,14 +82,14 @@ public class Sort {
         for (int i = 0; i < arr.length - 1; i++) {
             int min = i;
 
-            for (int j = i + 1; j < arr.length; j++) {
-                if (arr[j] < arr[min]) {
-                    min = j;
+            for (int j = i + 1; j < arr.length; j++) { //走訪未排序的元素
+                if (arr[j] < arr[min]) {//找到目前最小值
+                    min = j;//记录最小值
                 }
             }
 
             if (min != i) {
-                swap(arr, i, min);
+                swap(arr, i, min);//交换
             }
         }
     }

@@ -1,13 +1,10 @@
-package com.zcl.concurrent;
+package concurrent;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * volatile保证可见性，但java运算并不是原子操作
