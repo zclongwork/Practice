@@ -72,6 +72,20 @@ public class MainActivity extends AppCompatActivity
                 showDialogTipUserRequestPermission();
             }
         }
+
+
+    }
+
+    /**
+     * 复现android 7.1 Toast badTokenException
+     */
+    private void showToast() {
+        Toast.makeText(this, "测试异常", Toast.LENGTH_SHORT).show();
+        try {
+            Thread.sleep(5*1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private List<ListItem> getData() {
@@ -140,6 +154,14 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+
+        listView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showToast();
+            }
+        }, 4000);
     }
 
 
