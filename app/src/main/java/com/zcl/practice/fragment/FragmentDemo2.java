@@ -71,7 +71,7 @@ public class FragmentDemo2 extends Fragment {
 
 
         // 如果url不存在，app会直接崩溃，里面是异步的，可以通过LottieAnimationView.setFailureListener监听失败
-        lottieAnimationView.setAnimationFromUrl("http://devpic.xiu123.cn/live/anigift/12862c7b9bcd3d.zip");
+        lottieAnimationView.setAnimationFromUrl("https://devpic.xiu123.cn/live/anigift/12862c7b9bcd3d.zip");
 
         lottieAnimationView.playAnimation();
 

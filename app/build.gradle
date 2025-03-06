@@ -4,6 +4,7 @@ apply plugin: 'com.didiglobal.booster'
 println("gralde moudle app>>>>>>> ")
 
 android {
+    namespace 'com.zcl.practice'
     compileSdkVersion COMPILE_SDK_VERSION
     buildToolsVersion ANDROID_BUILD_TOOLS_VERSION
     defaultConfig {
@@ -37,14 +38,14 @@ dependencies {
     def multidex_version = "2.0.1"
     implementation "androidx.multidex:multidex:$multidex_version"
 
-    implementation 'androidx.preference:preference:1.1.1'
+    implementation 'androidx.preference:preference:1.2.1'
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
 
-    implementation 'com.github.ctiao:DanmakuFlameMaster:0.9.16'
-    implementation 'com.github.ctiao:ndkbitmap-armv7a:0.9.16'
+//    implementation 'com.github.ctiao:DanmakuFlameMaster:0.9.16'
+//    implementation 'com.github.ctiao:ndkbitmap-armv7a:0.9.16'
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 
     implementation 'com.facebook.fresco:fresco:1.7.1'

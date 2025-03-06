@@ -6,12 +6,11 @@ android {
 
     compileSdkVersion COMPILE_SDK_VERSION
     buildToolsVersion ANDROID_BUILD_TOOLS_VERSION
+    namespace 'com.zcl.library'
 
     defaultConfig {
         minSdkVersion ANDROID_BUILD_MIN_SDK_VERSION
         targetSdkVersion ANDROID_BUILD_TARGET_SDK_VERSION
-        versionCode 1
-        versionName "1.0"
 
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8

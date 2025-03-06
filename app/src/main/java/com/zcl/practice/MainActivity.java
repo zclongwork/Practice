@@ -25,7 +25,7 @@ import com.zcl.library.util.adapter.SimpleBaseAdapter;
 import com.zcl.library.util.adapter.ViewHolder;
 import com.zcl.practice.animation.AnimationActivity;
 import com.zcl.practice.constant.ItemId;
-import com.zcl.practice.danmakuflame.DemoActivity;
+//import com.zcl.practice.danmakuflame.DemoActivity;
 import com.zcl.practice.fragment.FragmentDemoActivity;
 import com.zcl.practice.fragment.PageGridActivity;
 import com.zcl.practice.fragment.PageZoomActivity;
@@ -351,8 +351,8 @@ public class MainActivity extends AppCompatActivity
             
         } else if (id == R.id.nav_gallery) {
     
-            Intent i = new Intent(this, DemoActivity.class);
-            startActivity(i);
+//            Intent i = new Intent(this, DemoActivity.class);
+//            startActivity(i);
         } else if (id == R.id.nav_slideshow) {
             Intent i = new Intent(this, RxJavaDemoActivity.class);
             startActivity(i);

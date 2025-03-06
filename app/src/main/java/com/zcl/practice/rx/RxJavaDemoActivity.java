@@ -59,22 +59,18 @@ public class RxJavaDemoActivity extends BaseActivity implements View.OnClickList
     
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-        case R.id.bt_test:
-//            RxJavaTest.test();
+        int id = v.getId();
+        if(id == R.id.bt_test) {
             RxJavaTest.test2();
-            break;
-        case R.id.bt_search:
+            //            RxJavaTest.test();
+        }else if (id ==R.id.bt_search) {
             scanMp4File();
 //            scanFileAsync(RxJavaDemoActivity.this, "/sdcard/Android/data/com.ss.android.article.news/cache/hashedvideos/");
-            break;
-        case R.id.bt_show:
+        } else if (id ==R.id.bt_show) {
             chainCalls();
-            break;
-        case R.id.bt_play:
+        } else if(id == R.id.bt_play) {
 //            playVideo("/sdcard/Android/data/com.smile.gifmaker/cache/.video_cache/1fa9aaf8957d4481d15c2ab9997a9ecb.mp4");
             playVideo("/sdcard/Android/data/com.smile.gifmaker/cache/.video_cache/b1a23bc65f04d644be8df60cc033599b.mp4");
-                break;
         }
     }
     

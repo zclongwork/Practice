@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 
+import androidx.multidex.BuildConfig;
 import androidx.multidex.MultiDexApplication;
 
 /**

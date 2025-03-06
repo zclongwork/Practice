@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.zcl.practice"
+<manifest
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -28,7 +28,7 @@
 
         <activity android:name=".AdapterCountDownActivity"/>
         <activity android:name=".animation.AnimationActivity"/>
-        <activity android:name=".danmakuflame.DemoActivity"/>
+<!--        <activity android:name=".danmakuflame.DemoActivity"/>-->
         <activity android:name=".rx.RxJavaDemoActivity"
                   android:label="RxJava"/>
 

@@ -72,38 +72,34 @@ public class ToolsActivity extends BaseActivity implements View.OnClickListener 
 
 
 
+
     @Override
     public void onClick(View v) {
-
-        switch (v.getId()) {
-            case R.id.notify_status:
-                status();
-                break;
-            case R.id.notify_pic:
-                def();
-                break;
-            case R.id.notify_pic_big:
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        final Bitmap bitmap = getBitmapFromURL("https://vi3.xiu123.cn/live/2020/11/23/14/1010v1606114240760959616_b.webp");
-                        uiHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Log.d(TAG, "bitmap:" + bitmap);
+        int id = v.getId();
+        if (id == R.id.notify_status) {
+            status();
+        } else if (id == R.id.notify_pic) {
+            def();
+        } else if (id == R.id.notify_pic_big) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    final Bitmap bitmap = getBitmapFromURL("https://vi3.xiu123.cn/live/2020/11/23/14/1010v1606114240760959616_b.webp");
+                    uiHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.d(TAG, "bitmap:" + bitmap);
 //                                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext, NotificationChannel.DEFAULT_CHANNEL_ID);
-                                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext, "default");
-                                showBigNotification(bitmap, mBuilder, "title", "message");
-                            }
-                        });
-                    }
-                }).start();
-                break;
-            case R.id.proxy:
-                testProxy();
-                break;
-            case R.id.btn_net:
-                DemoRequest.getAd().observeOn(Schedulers.io())
+                            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext, "default");
+                            showBigNotification(bitmap, mBuilder, "title", "message");
+                        }
+                    });
+                }
+            }).start();
+        } else if (id == R.id.proxy) {
+            testProxy();
+        } else if (id == R.id.btn_net) {
+            DemoRequest.getAd().observeOn(Schedulers.io())
                     .subscribe(new DisposableObserver<String>() {
                         @Override
                         public void onNext(@NonNull String s) {
@@ -121,9 +117,7 @@ public class ToolsActivity extends BaseActivity implements View.OnClickListener 
                             dispose();
                         }
                     });
-                break;
-            default:
-                break;
+
         }
     }
 
