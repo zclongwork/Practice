@@ -42,6 +42,8 @@
         <activity android:name=".ToolsActivity"/>
         <activity android:name=".SimpleFragmentActivity"/>
 
+        <activity android:name=".database.ui.DatabaseActivity"/>
+
 
     </application>
 

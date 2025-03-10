@@ -60,7 +60,7 @@ public class FragmentDemo2 extends Fragment {
     LottieAnimationView lottieAnimationView;
     private void test() {
         lottieAnimationView = mRootView.findViewById(R.id.lottie_gift_view);
-        lottieAnimationView.useHardwareAcceleration(true);
+//        lottieAnimationView.useHardwareAcceleration(true);
 
         lottieAnimationView.setRepeatCount(1);
 //        lottieAnimationView.setAnimation(tempLottie.getLottieJson());//在assets目录下的动画json文件名。 //"lottie/giftLove.json"

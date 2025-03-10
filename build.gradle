@@ -22,6 +22,8 @@ buildscript {
     apply from: 'config.gradle'
     dependencies {
         classpath 'com.android.tools.build:gradle:8.8.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.21"
+//        id 'org.jetbrains.kotlin.android' version '1.9.21' apply false
 
         classpath "com.didiglobal.booster:booster-gradle-plugin:$booster_version"
         classpath "com.didiglobal.booster:booster-transform-toast:$booster_version"

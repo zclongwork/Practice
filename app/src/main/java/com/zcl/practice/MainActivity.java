@@ -26,6 +26,7 @@ import com.zcl.library.util.adapter.ViewHolder;
 import com.zcl.practice.animation.AnimationActivity;
 import com.zcl.practice.constant.ItemId;
 //import com.zcl.practice.danmakuflame.DemoActivity;
+import com.zcl.practice.database.ui.DatabaseActivity;
 import com.zcl.practice.fragment.FragmentDemoActivity;
 import com.zcl.practice.fragment.PageGridActivity;
 import com.zcl.practice.fragment.PageZoomActivity;
@@ -94,6 +95,7 @@ public class MainActivity extends AppCompatActivity
         data.add(new ListItem(ItemId.GRID,"横向分页的GridView效果"));
         data.add(new ListItem(ItemId.ZOOM,"滑动缩放效果"));
         data.add(new ListItem(ItemId.UI,"高级UI"));
+        data.add(new ListItem(ItemId.DATA_BASE,"Room demo"));
         return data;
     }
 
@@ -146,6 +148,9 @@ public class MainActivity extends AppCompatActivity
                         break;
                     case ItemId.UI:
                         SimpleFragmentActivity.startSeniorUI(MainActivity.this);
+                        break;
+                    case ItemId.DATA_BASE:
+                        startActivity(new Intent(MainActivity.this, DatabaseActivity.class));
                         break;
                     default:
                         break;

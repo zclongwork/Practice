@@ -20,4 +20,11 @@
 
     <string name="senior_ui">高级UI</string>
     <string name="senior_ui_1">自定义View</string>
+
+
+    <string name="query_str">查询</string>
+    <string name="insert_str">新增</string>
+    <string name="update_str">更新</string>
+    <string name="delete_str">删除</string>
+    <string name="net_test_str">网络测试Net框架</string>
 </resources>
