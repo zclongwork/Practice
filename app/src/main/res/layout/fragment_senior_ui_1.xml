@@ -8,8 +8,26 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <com.zcl.practice.widget.CustomAnalogClock
+                android:id="@+id/clock"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                app:textColor="@color/red"
+                android:paddingLeft="10dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:background="@color/colorPrimary"
+                />
+
+        </FrameLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -17,7 +35,7 @@
             android:text="搜索历史"
             android:textColor="@android:color/black"
             android:textSize="18sp"/>
-        <com.zcl.practice.ui.FlowLayout
+        <com.zcl.practice.widget.FlowLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
@@ -89,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_button_circular"
                 android:text="图书勋章日" />
-        </com.zcl.practice.ui.FlowLayout>
+        </com.zcl.practice.widget.FlowLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -98,7 +116,7 @@
             android:text="搜索发现"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
-        <com.zcl.practice.ui.FlowLayout
+        <com.zcl.practice.widget.FlowLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp">
@@ -193,7 +211,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_button_circular"
                 android:text="笔记本电脑" />
-        </com.zcl.practice.ui.FlowLayout>
+        </com.zcl.practice.widget.FlowLayout>
     </LinearLayout>
 
 </ScrollView>

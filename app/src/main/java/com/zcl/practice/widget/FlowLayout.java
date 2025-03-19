@@ -1,4 +1,4 @@
-package com.zcl.practice.ui;
+package com.zcl.practice.widget;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -25,7 +25,7 @@ public class FlowLayout extends ViewGroup {
 //        initMeasureParams();
     }
 
-    //反射
+
     public FlowLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
 //        initMeasureParams();

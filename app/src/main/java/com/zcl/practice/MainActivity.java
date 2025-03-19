@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity
      * 复现android 7.1 Toast badTokenException
      */
     private void showToast() {
-        Toast.makeText(this, "测试异常", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "测试Toast BadTokenException 异常", Toast.LENGTH_SHORT).show();
         try {
             Thread.sleep(5*1000);
         } catch (InterruptedException e) {
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity
         data.add(new ListItem(ItemId.FRAGMENT,"Fragment"));
         data.add(new ListItem(ItemId.GRID,"横向分页的GridView效果"));
         data.add(new ListItem(ItemId.ZOOM,"滑动缩放效果"));
-        data.add(new ListItem(ItemId.UI,"高级UI"));
+        data.add(new ListItem(ItemId.UI,"自定义控件"));
         data.add(new ListItem(ItemId.DATA_BASE,"Room demo"));
         return data;
     }
@@ -161,12 +161,12 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        listView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                showToast();
-            }
-        }, 4000);
+//        listView.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                showToast();
+//            }
+//        }, 4000);
     }
 
 
