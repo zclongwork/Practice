@@ -24,6 +24,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.zcl.library.util.adapter.SimpleBaseAdapter;
 import com.zcl.library.util.adapter.ViewHolder;
 import com.zcl.practice.animation.AnimationActivity;
+import com.zcl.practice.compose.ComposeSampleActivity;
 import com.zcl.practice.constant.ItemId;
 //import com.zcl.practice.danmakuflame.DemoActivity;
 import com.zcl.practice.database.ui.DatabaseActivity;
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity
         data.add(new ListItem(ItemId.ZOOM,"滑动缩放效果"));
         data.add(new ListItem(ItemId.UI,"自定义控件"));
         data.add(new ListItem(ItemId.DATA_BASE,"Room demo"));
+        data.add(new ListItem(ItemId.COMPOSE,"Compose demo"));
         return data;
     }
 
@@ -152,6 +154,9 @@ public class MainActivity extends AppCompatActivity
                     case ItemId.DATA_BASE:
                         startActivity(new Intent(MainActivity.this, DatabaseActivity.class));
                         break;
+                        case ItemId.COMPOSE:
+                            startActivity(new Intent(MainActivity.this, ComposeSampleActivity.class));
+                            break;
                     default:
                         break;
                 }
